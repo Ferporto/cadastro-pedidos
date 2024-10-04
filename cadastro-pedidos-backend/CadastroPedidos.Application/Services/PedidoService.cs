@@ -1,6 +1,5 @@
 ﻿using CadastroPedidos.Application.Dtos;
 using CadastroPedidos.Domain.Entities;
-using CadastroPedidos.Domain.Utils.Dependencies;
 using CadastroPedidos.Domain.Utils.Repositories;
 using CadastroPedidos.Domain.Utils.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -40,12 +39,16 @@ namespace CadastroPedidos.Application.Services
             }
         }
 
-        public async Task<PedidoOutput> Get(int id)
+        public async Task<PedidoOutput?> Get(int id)
         {
             var pedido = await _pedidos.AsQueryable()
                 .Include(pedido => pedido.ItensPedido)
                 .ThenInclude(item => item.Produto)
             .FirstOrDefaultAsync(pedido => pedido.Id == id);
+            if (pedido == null)
+            {
+                return null;
+            }
 
             var output = new PedidoOutput(pedido);
             return output;

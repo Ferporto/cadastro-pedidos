@@ -33,6 +33,11 @@ public class PedidoController : ControllerBase
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         var output = await _pedidoService.Get(id);
+        if (output == null) 
+        {
+            return NotFound();
+        }
+
         return Ok(output);
     }
 
