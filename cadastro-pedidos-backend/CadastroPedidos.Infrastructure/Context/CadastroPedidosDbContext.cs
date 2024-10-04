@@ -1,9 +1,11 @@
 ﻿using CadastroPedidos.Domain.Entities;
+using CadastroPedidos.Domain.Utils.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CadastroPedidos.Infrastructure.Context;
 
-public class CadastroPedidosDbContext : DbContext
+public class CadastroPedidosDbContext : DbContext, IDbContextWithTransactions
 {
     public DbSet<Pedido> Pedido { get; set; }
     public DbSet<ItensPedido> ItensPedido { get; set; }
@@ -11,6 +13,21 @@ public class CadastroPedidosDbContext : DbContext
 
     public CadastroPedidosDbContext(DbContextOptions<CadastroPedidosDbContext> options) : base(options)
     {
+    }
+
+    public IDbContextTransaction BeginTransaction()
+    {
+        return Database.BeginTransaction();
+    }
+
+    public void CommitTransaction()
+    {
+        Database.CurrentTransaction?.Commit();
+    }
+
+    public void RollbackTransaction()
+    {
+        Database.CurrentTransaction?.Rollback();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

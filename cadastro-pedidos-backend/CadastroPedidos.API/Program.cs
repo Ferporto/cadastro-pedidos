@@ -1,4 +1,7 @@
+using CadastroPedidos.Application.Services;
 using CadastroPedidos.Domain.Utils.Dependencies;
+using CadastroPedidos.Domain.Utils.Repositories;
+using CadastroPedidos.Domain.Utils.UnitOfWork;
 using CadastroPedidos.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -18,8 +21,12 @@ builder.Services.AddControllers();
 
 // Configuração automática de dependências
 // Adiciona o DependencyConfigurator para registrar serviços automaticamente
-var configurator = new DependencyConfigurator(Assembly.GetExecutingAssembly());
-configurator.ConfigureDependencies(builder.Services);
+//var configurator = new DependencyConfigurator(Assembly.GetExecutingAssembly());
+//configurator.ConfigureDependencies(builder.Services);
+builder.Services.AddScoped<IDbContextWithTransactions, CadastroPedidosDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient<IPedidoService, PedidoService>();
 
 var app = builder.Build();
 

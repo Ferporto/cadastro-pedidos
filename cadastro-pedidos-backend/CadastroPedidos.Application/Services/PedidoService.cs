@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CadastroPedidos.Application.Services
 {
-    public class PedidoService : IPedidoService, ITransientDependency
+    public class PedidoService : IPedidoService
     {
         public readonly IRepository<Pedido> _pedidos;
         private readonly IUnitOfWork _unitOfWork;

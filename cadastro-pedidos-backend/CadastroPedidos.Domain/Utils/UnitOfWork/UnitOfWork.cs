@@ -1,17 +1,15 @@
-﻿using CadastroPedidos.Domain.Utils.Dependencies;
-using CadastroPedidos.Domain.Utils.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using CadastroPedidos.Domain.Utils.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CadastroPedidos.Domain.Utils.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork, IScopedDependency
+public class UnitOfWork : IUnitOfWork
 {
-    private readonly DbContext _context;
+    private readonly IDbContextWithTransactions _context;
     private IDbContextTransaction _transaction;
     private Dictionary<string, object> _repositories;
 
-    public UnitOfWork(DbContext context)
+    public UnitOfWork(IDbContextWithTransactions context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _repositories = new Dictionary<string, object>();
@@ -20,7 +18,7 @@ public class UnitOfWork : IUnitOfWork, IScopedDependency
     // Iniciar a transação e retornar a própria instância
     public IUnitOfWork Begin()
     {
-        _transaction = _context.Database.BeginTransaction();
+        _transaction = _context.BeginTransaction();
         return this;
     }
 
@@ -45,11 +43,11 @@ public class UnitOfWork : IUnitOfWork, IScopedDependency
         try
         {
             await _context.SaveChangesAsync();
-            _transaction?.Commit();
+            _context.CommitTransaction();
         }
         catch
         {
-            _transaction?.Rollback();
+            _context.RollbackTransaction();
             throw;
         }
     }
@@ -57,12 +55,12 @@ public class UnitOfWork : IUnitOfWork, IScopedDependency
     // Reverter transações caso necessário
     public void Rollback()
     {
-        _transaction?.Rollback();
+        _context.RollbackTransaction();
     }
 
     public void Dispose()
     {
         _transaction?.Dispose();
-        _context.Dispose();
+        _context.Dispose();  // Esse Dispose deve ser do contexto correto
     }
 }

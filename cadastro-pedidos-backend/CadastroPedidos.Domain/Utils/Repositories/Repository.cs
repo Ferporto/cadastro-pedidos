@@ -1,13 +1,12 @@
-﻿using CadastroPedidos.Domain.Utils.Dependencies;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CadastroPedidos.Domain.Utils.Repositories;
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IScopedDependency
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly DbContext _context;
+    private readonly IDbContextWithTransactions _context;
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(DbContext context)
+    public Repository(IDbContextWithTransactions context)
     {
         _context = context;
         _dbSet = context.Set<TEntity>();
