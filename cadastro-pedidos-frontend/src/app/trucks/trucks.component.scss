@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  height: 100%;
+
+  ::ng-deep {
+    mat-tab-group {
+      height: 100%;
+
+      > div {
+        height: 100%;
+      }
+    }
+
+  }
+}

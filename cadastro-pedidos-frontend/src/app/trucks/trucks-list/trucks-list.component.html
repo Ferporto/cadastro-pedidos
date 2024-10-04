@@ -1,0 +1,44 @@
+<table mat-table [dataSource]="trucks">
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td class="actions" mat-cell *matCellDef="let truckModel;">
+      <button matTooltip="Editar" mat-icon-button (click)="update(truckModel)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button matTooltip="Excluir" mat-icon-button (click)="delete(truckModel)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="licensePlate">
+    <th mat-header-cell *matHeaderCellDef>Placa</th>
+    <td mat-cell *matCellDef="let element">{{element.licensePlate}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="modelName">
+    <th mat-header-cell *matHeaderCellDef>Modelo</th>
+    <td mat-cell *matCellDef="let element">{{element.modelName}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="modelYear">
+    <th mat-header-cell *matHeaderCellDef>Ano do Modelo</th>
+    <td mat-cell *matCellDef="let element">{{element.modelYear}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="manufacturingYear">
+    <th mat-header-cell *matHeaderCellDef>Ano de Fabricação</th>
+    <td mat-cell *matCellDef="let element">{{element.manufacturingYear}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
+
+<ng-template #TrucksListHeader>
+  <button (click)="openTruckEditor()">
+    <mat-icon>add</mat-icon>
+    <span>Novo</span>
+  </button>
+</ng-template>

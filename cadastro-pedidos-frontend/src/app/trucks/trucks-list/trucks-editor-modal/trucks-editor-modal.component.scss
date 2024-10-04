@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+div.header {
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+
+  span {
+    font-size: 16px;
+    flex: 100;
+  }
+
+  button {
+    display: contents;
+    flex: auto;
+  }
+
+  button:hover {
+    background-color: #f3f3f3;
+  }
+}
+
+.content {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+}

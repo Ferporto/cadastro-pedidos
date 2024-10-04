@@ -1,0 +1,23 @@
+:host {
+  height: 100%;
+  background-color: #fff;
+  place-items: flex-end;
+
+  > div {
+    display: flex;
+
+    span {
+      flex: 100;
+    }
+
+    button {
+      border: 0;
+      background-color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
+}
