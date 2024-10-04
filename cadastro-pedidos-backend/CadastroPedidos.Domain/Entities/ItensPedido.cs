@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Azure;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroPedidos.Domain.Entities;
@@ -22,4 +23,22 @@ public class ItensPedido
 
     // Relacionamento com Produto
     public virtual Produto Produto { get; set; }
+
+    public ItensPedido()
+    {
+    }
+
+    public ItensPedido(int idPedido, int idProduto, int quantidade)
+    {
+        IdPedido = idPedido;
+        IdProduto = idProduto;
+        Quantidade = quantidade;
+    }
+
+    public void Atualizar(int idPedido, int idProduto, int quantidade)
+    {
+        IdPedido = idPedido;
+        IdProduto = idProduto;
+        Quantidade = quantidade;
+    }
 }
