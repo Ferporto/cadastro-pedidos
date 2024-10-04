@@ -24,6 +24,18 @@ services:
     networks:
       - app-network
 
+  frontend:
+    build:
+      context: ./cadastro-pedidos-frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "4200:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
 networks:
   app-network:
     driver: bridge
