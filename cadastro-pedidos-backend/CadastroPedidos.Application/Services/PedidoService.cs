@@ -17,15 +17,18 @@ namespace CadastroPedidos.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Create(PedidoInput input)
+        public async Task<PedidoOutput> Create(PedidoInput input)
         {
             var pedidoParaCriar = new Pedido(input.NomeCliente, input.EmailCliente, input.Pago);
 
+            Pedido pedidoCriado;
             using (_unitOfWork.Begin())
             {
-                await _pedidos.InsertAsync(pedidoParaCriar);
+                pedidoCriado = await _pedidos.InsertAsync(pedidoParaCriar);
                 await _unitOfWork.CompleteAsync();
             }
+
+            return new PedidoOutput(pedidoCriado);
         }
 
         public async Task Delete(int id)

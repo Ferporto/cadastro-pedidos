@@ -17,5 +17,21 @@ public class Produto
 
     // Relacionamento com ItensPedido
     public virtual ICollection<ItensPedido> ItensPedido { get; set; }
+
+    public Produto()
+    {
+    }
+
+    public Produto(string nomeProduto, decimal valor)
+    {
+        NomeProduto = nomeProduto;
+        Valor = valor;
+    }
+
+    public void Atualizar(string nomeProduto, decimal valor)
+    {
+        NomeProduto = nomeProduto;
+        Valor = valor;
+    }
 }
 

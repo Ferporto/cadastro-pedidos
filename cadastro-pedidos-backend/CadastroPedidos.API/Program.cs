@@ -27,6 +27,8 @@ builder.Services.AddScoped<IDbContextWithTransactions, CadastroPedidosDbContext>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<IPedidoService, PedidoService>();
+builder.Services.AddTransient<IItensPedidoService, ItensPedidoService>();
+builder.Services.AddTransient<IProdutoService, ProdutoService>();
 
 var app = builder.Build();
 

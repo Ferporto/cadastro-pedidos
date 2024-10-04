@@ -5,39 +5,39 @@ using Microsoft.AspNetCore.Mvc;
 namespace CadastroPedidos.API.Controllers;
 
 [ApiController]
-[Route("pedidos")]
-public class PedidoController : ControllerBase
+[Route("produtos")]
+public class ProdutoController : ControllerBase
 {
-    public readonly IPedidoService _pedidoService;
+    public readonly IProdutoService _produtoService;
 
-    public PedidoController(IPedidoService pedidoService)
+    public ProdutoController(IProdutoService produtoService)
     {
-        _pedidoService = pedidoService;
+        _produtoService = produtoService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] PedidoInput input)
+    public async Task<IActionResult> Create([FromBody] ProdutoInput input)
     {
         if (input == null)
         {
             return BadRequest();
         }
-
-        var output = await _pedidoService.Create(input);
+        
+        var output = await _produtoService.Create(input);
         return CreatedAtAction(nameof(Get), new { id = output.Id }, output);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] PagedFilteredAndSortedInput input)
     {
-        var output = await _pedidoService.GetList(input);
+        var output = await _produtoService.GetList(input);
         return Ok(output);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
-        var output = await _pedidoService.Get(id);
+        var output = await _produtoService.Get(id);
         if (output == null) 
         {
             return NotFound();
@@ -47,21 +47,21 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PedidoInput input)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProdutoInput input)
     {
         if (input == null)
         {
             return BadRequest();
         }
 
-        await _pedidoService.Update(id, input);
+        await _produtoService.Update(id, input);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _pedidoService.Delete(id);
+        await _produtoService.Delete(id);
         return NoContent();
     }
 }

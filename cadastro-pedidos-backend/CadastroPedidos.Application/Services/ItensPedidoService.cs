@@ -17,15 +17,18 @@ namespace CadastroPedidos.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Create(int idPedido, ItensPedidoInput input)
+        public async Task<ItensPedidoOutput> Create(int idPedido, ItensPedidoInput input)
         {
             var itensPedidoParaCriar = new ItensPedido(idPedido, input.IdProduto, input.Quantidade);
 
+            ItensPedido itensPedidoCriado;
             using (_unitOfWork.Begin())
             {
-                await _itensPedido.InsertAsync(itensPedidoParaCriar);
+                itensPedidoCriado = await _itensPedido.InsertAsync(itensPedidoParaCriar);
                 await _unitOfWork.CompleteAsync();
             }
+
+            return new ItensPedidoOutput(itensPedidoCriado);
         }
 
         public async Task Delete(int idPedido, int id)

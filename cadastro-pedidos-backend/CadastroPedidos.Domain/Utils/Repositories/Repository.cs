@@ -22,9 +22,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task InsertAsync(TEntity entity)
+    public async Task<TEntity> InsertAsync(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
+        var createdEntity = await _dbSet.AddAsync(entity);
+        return createdEntity.Entity;
     }
 
     public void Update(TEntity entity)

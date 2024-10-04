@@ -4,7 +4,7 @@ namespace CadastroPedidos.Application.Services
 {
     public interface IItensPedidoService
     {
-        Task Create(int idPedido, ItensPedidoInput input);
+        Task<ItensPedidoOutput> Create(int idPedido, ItensPedidoInput input);
         Task<PagedResultDto<ItensPedidoOutput>> GetList(int idPedido, PagedFilteredAndSortedInput input);
         Task<ItensPedidoOutput?> Get(int idPedido, int id);
         Task Update(int idPedido, int id, ItensPedidoInput input);

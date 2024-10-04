@@ -19,8 +19,13 @@ public class ItensPedidoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromRoute] int idPedido, [FromBody] ItensPedidoInput input)
     {
-        await _itensPedidoService.Create(idPedido, input);
-        return Ok();
+        if (input == null)
+        {
+            return BadRequest();
+        }
+
+        var output = await _itensPedidoService.Create(idPedido, input);
+        return CreatedAtAction(nameof(Get), new { id = output.Id, idPedido = output.IdPedido }, output);
     }
 
     [HttpGet]
@@ -45,14 +50,19 @@ public class ItensPedidoController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int idPedido, [FromRoute] int id, [FromBody] ItensPedidoInput input)
     {
+        if (input == null)
+        {
+            return BadRequest();
+        }
+
         await _itensPedidoService.Update(idPedido, id, input);
-        return Ok();
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int idPedido, [FromRoute] int id)
     {
         await _itensPedidoService.Delete(idPedido, id);
-        return Ok();
+        return NoContent();
     }
 }
