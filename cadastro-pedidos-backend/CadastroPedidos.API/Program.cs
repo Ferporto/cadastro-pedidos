@@ -27,9 +27,17 @@ builder.Services.AddTransient<IPedidoService, PedidoService>();
 
 var app = builder.Build();
 
-// Configurar Swagger para o ambiente de desenvolvimento
-if (app.Environment.IsDevelopment())
+// Chamar o método para aplicar as migrações ao iniciar a aplicação
+using (var scope = app.Services.CreateScope())
 {
+    var dbContext = scope.ServiceProvider.GetRequiredService<CadastroPedidosDbContext>();
+    // Aplica as migrações automaticamente ao iniciar a aplicação
+    dbContext.Database.Migrate();
+}
+
+// Configurar Swagger para o ambiente de desenvolvimento
+//if (app.Environment.IsDevelopment())
+//{
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -37,11 +45,9 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cadastro de Pedidos API v1");
         c.RoutePrefix = string.Empty;  // Define Swagger como a página inicial do backend
     });
-}
+//}
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseRouting();
 
 // Mapear os controllers
 app.MapControllers();
