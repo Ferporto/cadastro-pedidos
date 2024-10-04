@@ -15,8 +15,6 @@ public class CadastroPedidosDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-
         modelBuilder.Entity<Pedido>().ToTable("Pedido");
         modelBuilder.Entity<ItensPedido>().ToTable("ItensPedido");
         modelBuilder.Entity<Produto>().ToTable("Produto");
@@ -32,5 +30,7 @@ public class CadastroPedidosDbContext : DbContext
             .WithMany(pedido => pedido.ItensPedido)
             .HasForeignKey(item => item.IdProduto)
             .OnDelete(DeleteBehavior.Cascade);
+
+        base.OnModelCreating(modelBuilder);
     }
 }

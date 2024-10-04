@@ -1,10 +1,8 @@
 using CadastroPedidos.Application.Services;
-using CadastroPedidos.Domain.Utils.Dependencies;
 using CadastroPedidos.Domain.Utils.Repositories;
 using CadastroPedidos.Domain.Utils.UnitOfWork;
 using CadastroPedidos.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
