@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroPedidos.Domain.Utils.Repositories;
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IScopedDependency
 {
     private readonly DbContext _context;
     private readonly DbSet<TEntity> _dbSet;

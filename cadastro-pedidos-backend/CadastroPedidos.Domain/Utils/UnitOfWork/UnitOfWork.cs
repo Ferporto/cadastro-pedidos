@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CadastroPedidos.Domain.Utils.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork : IUnitOfWork, IScopedDependency
 {
     private readonly DbContext _context;
     private IDbContextTransaction _transaction;

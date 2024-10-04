@@ -1,12 +1,13 @@
 ﻿using CadastroPedidos.Application.Dtos;
 using CadastroPedidos.Domain.Entities;
+using CadastroPedidos.Domain.Utils.Dependencies;
 using CadastroPedidos.Domain.Utils.Repositories;
 using CadastroPedidos.Domain.Utils.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroPedidos.Application.Services
 {
-    public class PedidoService : IPedidoService
+    public class PedidoService : IPedidoService, ITransientDependency
     {
         public readonly IRepository<Pedido> _pedidos;
         private readonly IUnitOfWork _unitOfWork;
