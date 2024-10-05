@@ -10,43 +10,6 @@ Antes de começar, verifique se você tem as seguintes ferramentas instaladas:
 - [Node.js](https://nodejs.org/) (para rodar o Angular localmente, se necessário)
 - [.NET SDK](https://dotnet.microsoft.com/download) (para desenvolvimento e testes no backend)
 
-## Estrutura do Projeto
-
-```
-/MeuProjeto
-│
-├── backend/                     # Pasta principal para o backend .NET
-│   ├── CadastroPedidos.API/      # Projeto principal da API (Backend .NET)
-│   │   ├── Controllers/          # Controladores da API
-│   │   ├── Infrastructure/       # Implementações de infraestrutura (DbContext, Migrations)
-│   │   ├── Program.cs            # Arquivo Program principal
-│   │   ├── appsettings.json      # Configurações do projeto .NET
-│   │   ├── Dockerfile            # Dockerfile para o backend .NET
-│   │   └── ...
-│   └── CadastroPedidos.sln       # Arquivo de solução .NET
-│
-├── frontend/                    # Pasta principal para o frontend Angular
-│   ├── src/                     # Código-fonte da aplicação Angular
-│   ├── angular.json             # Configuração Angular CLI
-│   ├── Dockerfile               # Dockerfile para a aplicação Angular
-│   ├── package.json             # Gerenciamento de dependências npm
-│   ├── tsconfig.json            # Configuração TypeScript
-│   └── ...
-│
-├── docker-compose.yml           # Arquivo Docker Compose para gerenciar contêineres
-├── README.md                    # Este arquivo de documentação
-└── .gitignore                   # Arquivo gitignore para excluir arquivos indesejados
-```
-
-## Configuração do Ambiente
-
-1. Clone este repositório para a sua máquina:
-
-   ```bash
-   git clone https://seu-repositorio.git
-   cd MeuProjeto
-   ```
-
 ## Como Rodar o Aplicativo
 
 ### 1. Construir e iniciar os contêineres
@@ -97,11 +60,3 @@ A API fornece endpoints para gerenciar pedidos. Use a interface do Swagger para 
   ```bash
   docker-compose logs
   ```
-
-## Contribuições
-
-Contribuições são bem-vindas! Se você encontrar algum problema ou quiser adicionar novos recursos, sinta-se à vontade para abrir um **issue** ou **pull request**.
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
