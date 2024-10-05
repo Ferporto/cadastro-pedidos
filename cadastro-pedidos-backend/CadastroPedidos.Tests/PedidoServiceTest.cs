@@ -114,54 +114,48 @@ namespace CadastroPedidos.Tests
         }
 
         [Fact]
-        public async Task GetList()
+        public async Task GetList_ReturnsPagedResultDto()
         {
             // Arrange
             var pedidos = new List<Pedido>
+    {
+        new Pedido("Cliente 01", "email@cliente.com", true)
+        {
+            Id = 1,
+            ItensPedido = new List<ItensPedido>
             {
                 new()
                 {
                     Id = 1,
-                    NomeCliente = "Cliente 01",
-                    EmailCliente = "email@cliente.com",
-                    Pago = true,
-                    ItensPedido = new List<ItensPedido>
+                    IdPedido = 1,
+                    IdProduto = 1,
+                    Quantidade = 20,
+                    Produto = new Produto
                     {
-                        new()
-                        {
-                            Id = 1,
-                            IdPedido = 1,
-                            IdProduto = 1,
-                            Quantidade = 20,
-                            Produto = new Produto
-                            {
-                                NomeProduto = "Produto 01",
-                                Valor = 20.50m,
-                            }
-                        },
-                        new()
-                        {
-                            Id = 2,
-                            IdPedido = 1,
-                            IdProduto = 2,
-                            Quantidade = 15,
-                            Produto = new Produto
-                            {
-                                NomeProduto = "Produto 02",
-                                Valor = 10.00m,
-                            }
-                        }
+                        NomeProduto = "Produto 01",
+                        Valor = 20.50m,
                     }
                 },
                 new()
                 {
                     Id = 2,
-                    NomeCliente = "Cliente 02",
-                    EmailCliente = "email2@cliente.com",
-                    Pago = false,
-                    ItensPedido = new List<ItensPedido>()
+                    IdPedido = 1,
+                    IdProduto = 2,
+                    Quantidade = 15,
+                    Produto = new Produto
+                    {
+                        NomeProduto = "Produto 02",
+                        Valor = 10.00m,
+                    }
                 }
-            };
+            }
+        },
+        new Pedido("Cliente 02", "email2@cliente.com", false)
+        {
+            Id = 2,
+            ItensPedido = new List<ItensPedido>()
+        }
+    };
 
             _dbContext.Pedido.AddRange(pedidos);
             await _dbContext.SaveChangesAsync();
@@ -175,6 +169,29 @@ namespace CadastroPedidos.Tests
             Assert.NotNull(result);
             Assert.Equal(2, result.TotalCount);
             Assert.Equal(2, result.Itens.Count);
+
+            var primeiroPedido = result.Itens[0];
+            Assert.Equal(1, primeiroPedido.Id);
+            Assert.Equal("Cliente 01", primeiroPedido.NomeCliente);
+            Assert.Equal("email@cliente.com", primeiroPedido.EmailCliente);
+            Assert.True(primeiroPedido.Pago);
+            Assert.Equal(2, primeiroPedido.ItensPedido.Count);
+
+            var primeiroPedidoItens = primeiroPedido.ItensPedido.ToList();
+            Assert.Equal(2, primeiroPedidoItens.Count);
+            Assert.Equal("Produto 01", primeiroPedidoItens[0].NomeProduto);
+            Assert.Equal(20.50m, primeiroPedidoItens[0].ValorUnitario);
+            Assert.Equal(20, primeiroPedidoItens[0].Quantidade);
+            Assert.Equal("Produto 02", primeiroPedidoItens[1].NomeProduto);
+            Assert.Equal(10.00m, primeiroPedidoItens[1].ValorUnitario);
+            Assert.Equal(15, primeiroPedidoItens[1].Quantidade);
+
+            var segundoPedido = result.Itens[1];
+            Assert.Equal(2, segundoPedido.Id);
+            Assert.Equal("Cliente 02", segundoPedido.NomeCliente);
+            Assert.Equal("email2@cliente.com", segundoPedido.EmailCliente);
+            Assert.False(segundoPedido.Pago);
+            Assert.Empty(segundoPedido.ItensPedido);
         }
 
         [Fact]
