@@ -73,7 +73,7 @@ export class PedidosItensListaComponent {
       id: [],
       idPedido: [this.pedido.id],
       idProduto: [],
-      quantidade: [null, [Validators.required]],
+      quantidade: [null, [Validators.required, Validators.min(0)]],
     });
 
     this.getProdutos();
