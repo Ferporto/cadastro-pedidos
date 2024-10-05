@@ -29,7 +29,7 @@ public class ItensPedidoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResultDto<ItensPedidoOutput>>> GetList([FromRoute] int idPedido, [FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<ItensPedidoOutput>>> GetList([FromRoute] int idPedido, [FromQuery] PagedInput input)
     {
         var output = await _itensPedidoService.GetList(idPedido, input);
         return Ok(output);

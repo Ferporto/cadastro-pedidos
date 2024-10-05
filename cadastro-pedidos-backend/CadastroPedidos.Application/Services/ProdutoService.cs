@@ -54,7 +54,7 @@ namespace CadastroPedidos.Application.Services
             return output;
         }
 
-        public async Task<PagedResultDto<ProdutoOutput>> GetList(PagedFilteredAndSortedInput input)
+        public async Task<PagedResultDto<ProdutoOutput>> GetList(PagedInput input)
         {
             var produtos = _produtos.AsQueryable();
 

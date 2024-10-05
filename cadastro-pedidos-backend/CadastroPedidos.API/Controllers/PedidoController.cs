@@ -1,6 +1,5 @@
 ﻿using CadastroPedidos.Application.Dtos;
 using CadastroPedidos.Application.Services;
-using CadastroPedidos.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroPedidos.API.Controllers;
@@ -29,7 +28,7 @@ public class PedidoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResultDto<PedidoOutput>>> GetList([FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<PedidoOutput>>> GetList([FromQuery] PagedInput input)
     {
         var output = await _pedidoService.GetList(input);
         return Ok(output);

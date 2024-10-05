@@ -58,7 +58,7 @@ namespace CadastroPedidos.Application.Services
             return output;
         }
 
-        public async Task<PagedResultDto<ItensPedidoOutput>> GetList(int idPedido, PagedFilteredAndSortedInput input)
+        public async Task<PagedResultDto<ItensPedidoOutput>> GetList(int idPedido, PagedInput input)
         {
             var itensPedido = _itensPedido.AsQueryable()
                 .Include(item => item.Produto)

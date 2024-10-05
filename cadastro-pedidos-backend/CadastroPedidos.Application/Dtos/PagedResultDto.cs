@@ -5,6 +5,10 @@ public class PagedResultDto<T> where T : class
     public List<T> Itens { get; set; }
     public int TotalCount { get; set; }
 
+    public PagedResultDto()
+    {
+    }
+
     public PagedResultDto(List<T> itens, int totalCount)
     {
         Itens = itens;

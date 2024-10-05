@@ -28,7 +28,7 @@ public class ProdutoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResultDto<ProdutoOutput>>> GetList([FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<ProdutoOutput>>> GetList([FromQuery] PagedInput input)
     {
         var output = await _produtoService.GetList(input);
         return Ok(output);
