@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 
-namespace TruckRegistration.Test;
+namespace CadastroPedidos.Tests;
 
 public class PedidoControllerTest
 {
@@ -102,7 +102,7 @@ public class PedidoControllerTest
             TotalCount = 2,
             Itens = new List<PedidoOutput>
             {
-                new() 
+                new()
                 {
                     Id = idPedido,
                     NomeCliente = "Cliente 01",
