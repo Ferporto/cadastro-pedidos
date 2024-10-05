@@ -12,6 +12,7 @@
 
 
 export interface ProdutoInput { 
+    id: number;
     nomeProduto: string;
     valor: number;
 }

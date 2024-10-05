@@ -10,12 +10,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {RouterModule} from "@angular/router";
 import {PedidosListaComponent} from './pedidos-lista/pedidos-lista.component';
-//import {CadastroPedidosModelsListComponent} from './cadastro-pedidos-models-list/cadastro-pedidos-models-list.component';
+import {ProdutosListaComponent} from './produtos-lista/produtos-lista.component';
 import {CadastroPedidosService} from "./cadastro-pedidos.service";
 import {PedidosEditorModalComponent} from './pedidos-lista/pedidos-editor-modal/pedidos-editor-modal.component';
-//import {
-//  CadastroPedidosModelsEditorModalComponent
-//} from './cadastro-pedidos-models-list/cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component';
+import {ProdutosEditorModalComponent} from './produtos-lista/produtos-editor-modal/produtos-editor-modal.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -26,7 +24,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   declarations: [
     CadastroPedidosComponent,
     PedidosListaComponent,
-    PedidosEditorModalComponent
+    PedidosEditorModalComponent,
+    ProdutosListaComponent,
+    ProdutosEditorModalComponent
   ],
   imports: [
     CommonModule,

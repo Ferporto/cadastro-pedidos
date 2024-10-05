@@ -1,39 +1,25 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {TruckModelType} from "../../api/models/truck-model-type";
-import {TruckModelInput} from "../../api/models/truck-model-input";
-import {CadastroPedidosModelsApiService} from "../../api/services/cadastro-pedidos-models-api.service";
-import {TruckModelOutput} from "../../api/models/truck-model-output";
+import { ProdutoInput, ProdutoOutput, ProdutoService } from '../../../api';
 
 @Component({
-  selector: 'app-cadastro-pedidos-models-editor-modal',
-  templateUrl: './cadastro-pedidos-models-editor-modal.component.html',
-  styleUrls: ['./cadastro-pedidos-models-editor-modal.component.scss']
+  selector: 'app-produtos-editor-modal',
+  templateUrl: './produtos-editor-modal.component.html',
+  styleUrls: ['./produtos-editor-modal.component.scss']
 })
-export class CadastroPedidosModelsEditorModalComponent {
+export class ProdutosEditorModalComponent {
   public form!: FormGroup;
 
-  public readonly TruckModelType = TruckModelType;
-
-  public types: TruckModelType[] = [
-    TruckModelType.Fh,
-    TruckModelType.Fm
-  ];
-
   private isCreating = false;
-  private currentYear = Number(new Date().getFullYear());
-  private nextYear = this.currentYear + 1;
-
-  public years: number[] = [this.currentYear, this.nextYear];
 
   public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<CadastroPedidosModelsEditorModalComponent>,
-              private service: CadastroPedidosModelsApiService, @Inject(MAT_DIALOG_DATA) private truckModel: TruckModelOutput) {
-    this.isCreating = !truckModel;
+  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<ProdutosEditorModalComponent>,
+              private service: ProdutoService, @Inject(MAT_DIALOG_DATA) private produto: ProdutoOutput) {
+    this.isCreating = !produto;
     this.createForm();
   }
 
@@ -42,9 +28,9 @@ export class CadastroPedidosModelsEditorModalComponent {
   }
 
   public save(): void {
-    const input: TruckModelInput = this.form.getRawValue();
+    const input: ProdutoInput = this.form.getRawValue();
 
-    const action = this.isCreating ? this.service.create(input) : this.service.update(input.id, input);
+    const action = this.isCreating ? this.service.produtosPost(input) : this.service.produtosIdPut(input.id, input);
 
     action.subscribe(() => {
       this.matDialogRef.close();
@@ -53,19 +39,13 @@ export class CadastroPedidosModelsEditorModalComponent {
 
   private createForm(): void {
     if (this.isCreating) {
-      this.truckModel = {
-        id: '',
-        year: this.currentYear,
-        name: '',
-        type: TruckModelType.Fh,
-      };
+      this.produto = {} as any;
     }
 
     this.form = this.formBuilder.group({
-      id: [this.truckModel.id, [Validators.required]],
-      name: [this.truckModel.name, [Validators.required]],
-      type: [this.truckModel.type, [Validators.required]],
-      year: [this.truckModel.year, [Validators.required, Validators.min(this.currentYear), Validators.max(this.nextYear)]],
+      id: [this.produto.id],
+      nomeProduto: [this.produto.nomeProduto, [Validators.required]],
+      valor: [this.produto.valor, [Validators.required, Validators.min(0)]],
     });
   }
 }

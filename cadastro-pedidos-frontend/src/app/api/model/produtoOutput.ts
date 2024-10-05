@@ -12,7 +12,7 @@
 
 
 export interface ProdutoOutput { 
-    id?: number;
+    id: number;
     nomeProduto?: string | null;
     valor?: number;
 }

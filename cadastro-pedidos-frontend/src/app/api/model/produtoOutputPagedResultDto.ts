@@ -13,7 +13,7 @@ import { ProdutoOutput } from './produtoOutput';
 
 
 export interface ProdutoOutputPagedResultDto { 
-    itens?: Array<ProdutoOutput> | null;
-    totalCount?: number;
+    itens: Array<ProdutoOutput>;
+    totalCount: number;
 }
 

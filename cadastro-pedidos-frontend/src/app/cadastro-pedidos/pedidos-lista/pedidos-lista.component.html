@@ -2,11 +2,11 @@
 
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
-    <td class="actions" mat-cell *matCellDef="let truckModel;">
-      <button matTooltip="Editar" mat-icon-button (click)="update(truckModel)">
+    <td class="actions" mat-cell *matCellDef="let pedido;">
+      <button matTooltip="Editar" mat-icon-button (click)="update(pedido)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button matTooltip="Excluir" mat-icon-button (click)="delete(truckModel)">
+      <button matTooltip="Excluir" mat-icon-button (click)="delete(pedido)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>

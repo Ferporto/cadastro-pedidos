@@ -1,6 +1,6 @@
 <div class="header">
   <span>
-    Cadastrar Modelo
+    Cadastrar Produto
   </span>
   <button (click)="closeModal()">
     <mat-icon>close</mat-icon>
@@ -12,28 +12,13 @@
     <form [formGroup]="form">
       <div class="group-1">
         <mat-form-field>
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="name" [required]="true">
+          <mat-label>Nome Produto</mat-label>
+          <input matInput formControlName="nomeProduto" [required]="true">
         </mat-form-field>
 
-
-        <mat-form-field appearance="fill">
-          <mat-label>Tipo</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let type of types" [value]="type">
-              {{TruckModelType[type].toUpperCase()}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
-        <mat-form-field appearance="fill">
-          <mat-label>Ano</mat-label>
-          <mat-select formControlName="year">
-            <mat-option *ngFor="let year of years" [value]="year">
-              {{year}}
-            </mat-option>
-          </mat-select>
+        <mat-form-field>
+          <mat-label>Valor</mat-label>
+          <input matInput type="number" formControlName="valor" [required]="true">
         </mat-form-field>
       </div>
     </form>

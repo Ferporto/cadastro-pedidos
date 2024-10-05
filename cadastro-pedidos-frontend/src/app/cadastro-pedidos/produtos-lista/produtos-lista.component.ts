@@ -2,35 +2,33 @@ import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 
 import {CadastroPedidosService} from "../cadastro-pedidos.service";
-import {CadastroPedidosModelsEditorModalComponent} from "./cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component";
-import {CadastroPedidosModelsApiService} from "../api/services/cadastro-pedidos-models-api.service";
-import {TruckModelOutput} from "../api/models/truck-model-output";
-import {TruckModelType} from "../api/models/truck-model-type";
+import { ProdutoOutput, ProdutoOutputPagedResultDto, ProdutoService } from '../../api';
+import { ProdutosEditorModalComponent } from './produtos-editor-modal/produtos-editor-modal.component';
+
 
 @Component({
-  selector: 'app-cadastro-pedidos-models-list',
-  templateUrl: './cadastro-pedidos-models-list.component.html',
-  styleUrls: ['./cadastro-pedidos-models-list.component.scss']
+  selector: 'app-produtos-lista',
+  templateUrl: './produtos-lista.component.html',
+  styleUrls: ['./produtos-lista.component.scss']
 })
-export class CadastroPedidosModelsListComponent implements AfterViewInit {
-  @ViewChild('CadastroPedidosModelsListHeader') private headerTemplate!: TemplateRef<any>;
+export class ProdutosListaComponent implements AfterViewInit {
+  @ViewChild('ProdutosListHeader') private headerTemplate!: TemplateRef<any>;
 
-  public columns: string[] = ['actions', 'name', 'type', 'year'];
-  public truckModels: TruckModelOutput[] = [];
-  public readonly TruckModelType = TruckModelType;
+  public columns: string[] = ['actions', 'nomeProduto', 'valor'];
+  public produtos: ProdutoOutput[] = [];
 
-  constructor(private cadastro-pedidosService: CadastroPedidosService,  private matDialog: MatDialog,
-              private service: CadastroPedidosModelsApiService) {
-    this.getTruckModels();
+  constructor(private cadastroPedidosService: CadastroPedidosService,  private matDialog: MatDialog,
+              private service: ProdutoService) {
+    this.getProdutos();
   }
 
   ngAfterViewInit(): void {
     this.emitHeaderTemplate();
   }
 
-  public openTruckModelEditor(truckModel?: TruckModelOutput): void {
-    this.matDialog.open(CadastroPedidosModelsEditorModalComponent, {
-      data: truckModel,
+  public openProdutoEditor(produto?: ProdutoOutput): void {
+    this.matDialog.open(ProdutosEditorModalComponent, {
+      data: produto,
       hasBackdrop: true,
       height: 'calc(100% - 64px)',
       width: '40%',
@@ -39,23 +37,23 @@ export class CadastroPedidosModelsListComponent implements AfterViewInit {
         bottom: '0',
       }
     }).afterClosed().subscribe(() => {
-      this.getTruckModels();
+      this.getProdutos();
     });
   }
 
-  public update(truckModel: TruckModelOutput): void {
-    this.openTruckModelEditor(truckModel);
+  public update(produto: ProdutoOutput): void {
+    this.openProdutoEditor(produto);
   }
 
-  public delete(truckModel: TruckModelOutput): void {
-    this.service.delete(truckModel.id).subscribe(() => {
-      this.getTruckModels();
+  public delete(produto: ProdutoOutput): void {
+    this.service.produtosIdDelete(produto.id).subscribe(() => {
+      this.getProdutos();
     });
   }
 
-  private getTruckModels(): void {
-    this.service.getList().subscribe((truckModels: TruckModelOutput[]) => {
-      this.truckModels = truckModels;
+  private getProdutos(): void {
+    this.service.produtosGet().subscribe((produtosPaged: ProdutoOutputPagedResultDto) => {
+      this.produtos = produtosPaged.itens;
     });
   }
 
