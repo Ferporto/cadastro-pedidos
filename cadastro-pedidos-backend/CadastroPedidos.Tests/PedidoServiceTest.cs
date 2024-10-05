@@ -28,7 +28,7 @@ namespace CadastroPedidos.Tests
         }
 
         [Fact]
-        public async Task CreateValidInputReturnsPedidoOutput()
+        public async Task Create()
         {
             // Arrange
             var input = new PedidoInput { NomeCliente = "Cliente 01", EmailCliente = "email@cliente.com", Pago = true };
@@ -44,10 +44,41 @@ namespace CadastroPedidos.Tests
         }
 
         [Fact]
-        public async Task GetValidIdReturnsPedidoOutput()
+        public async Task Get()
         {
             // Arrange
-            var pedido = new Pedido("Cliente 01", "email@cliente.com", true);
+            var pedido = new Pedido("Cliente 01", "email@cliente.com", true)
+            {
+                Id = 1,
+                ItensPedido = new List<ItensPedido>
+        {
+            new()
+            {
+                Id = 1,
+                IdPedido = 1,
+                IdProduto = 1,
+                Quantidade = 20,
+                Produto = new Produto
+                {
+                    NomeProduto = "Produto 01",
+                    Valor = 20.50m,
+                }
+            },
+            new()
+            {
+                Id = 2,
+                IdPedido = 1,
+                IdProduto = 2,
+                Quantidade = 15,
+                Produto = new Produto
+                {
+                    NomeProduto = "Produto 02",
+                    Valor = 10.00m,
+                }
+            }
+        }
+            };
+
             _dbContext.Pedido.Add(pedido);
             await _dbContext.SaveChangesAsync();
 
@@ -60,10 +91,20 @@ namespace CadastroPedidos.Tests
             Assert.Equal("Cliente 01", result.NomeCliente);
             Assert.Equal("email@cliente.com", result.EmailCliente);
             Assert.True(result.Pago);
+            Assert.NotNull(result.ItensPedido);
+            Assert.Equal(pedido.ItensPedido.Count, result.ItensPedido.Count);
+
+            var itensPedidoResult = result.ItensPedido.ToList();
+            for (int i = 0; i < pedido.ItensPedido.Count; i++)
+            {
+                Assert.Equal(pedido.ItensPedido.ElementAt(i).Produto.NomeProduto, itensPedidoResult[i].NomeProduto);
+                Assert.Equal(pedido.ItensPedido.ElementAt(i).Produto.Valor, itensPedidoResult[i].ValorUnitario);
+                Assert.Equal(pedido.ItensPedido.ElementAt(i).Quantidade, itensPedidoResult[i].Quantidade);
+            }
         }
 
         [Fact]
-        public async Task GetInvalidIdReturnsNull()
+        public async Task GetNull()
         {
             // Act
             var result = await _pedidoService.Get(999);
@@ -73,13 +114,53 @@ namespace CadastroPedidos.Tests
         }
 
         [Fact]
-        public async Task GetListReturnsPagedResultDto()
+        public async Task GetList()
         {
             // Arrange
             var pedidos = new List<Pedido>
             {
-                new Pedido("Cliente 01", "email@cliente.com", true),
-                new Pedido("Cliente 02", "email2@cliente.com", false)
+                new()
+                {
+                    Id = 1,
+                    NomeCliente = "Cliente 01",
+                    EmailCliente = "email@cliente.com",
+                    Pago = true,
+                    ItensPedido = new List<ItensPedido>
+                    {
+                        new()
+                        {
+                            Id = 1,
+                            IdPedido = 1,
+                            IdProduto = 1,
+                            Quantidade = 20,
+                            Produto = new Produto
+                            {
+                                NomeProduto = "Produto 01",
+                                Valor = 20.50m,
+                            }
+                        },
+                        new()
+                        {
+                            Id = 2,
+                            IdPedido = 1,
+                            IdProduto = 2,
+                            Quantidade = 15,
+                            Produto = new Produto
+                            {
+                                NomeProduto = "Produto 02",
+                                Valor = 10.00m,
+                            }
+                        }
+                    }
+                },
+                new()
+                {
+                    Id = 2,
+                    NomeCliente = "Cliente 02",
+                    EmailCliente = "email2@cliente.com",
+                    Pago = false,
+                    ItensPedido = new List<ItensPedido>()
+                }
             };
 
             _dbContext.Pedido.AddRange(pedidos);
@@ -97,10 +178,13 @@ namespace CadastroPedidos.Tests
         }
 
         [Fact]
-        public async Task UpdateValidIdUpdatesPedido()
+        public async Task Update()
         {
             // Arrange
-            var pedido = new Pedido("Cliente 01", "email@cliente.com", true);
+            var pedido = new Pedido("Cliente 01", "email@cliente.com", true)
+            {
+                Id = 1
+            };
             _dbContext.Pedido.Add(pedido);
             await _dbContext.SaveChangesAsync();
 
