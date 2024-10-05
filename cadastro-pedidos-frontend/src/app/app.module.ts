@@ -36,7 +36,7 @@ import {HttpClientModule} from "@angular/common/http";
     RouterModule.forRoot([
       {
         path: '',
-        loadChildren: () => import('./trucks/trucks.module').then(m => m.TrucksModule)
+        loadChildren: () => import('./cadastro-pedidos/cadastro-pedidos.module').then(m => m.CadastroPedidosModule)
       }
     ])
   ],

@@ -3,15 +3,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {TruckModelType} from "../../api/models/truck-model-type";
 import {TruckModelInput} from "../../api/models/truck-model-input";
-import {TrucksModelsApiService} from "../../api/services/trucks-models-api.service";
+import {CadastroPedidosModelsApiService} from "../../api/services/cadastro-pedidos-models-api.service";
 import {TruckModelOutput} from "../../api/models/truck-model-output";
 
 @Component({
-  selector: 'app-trucks-models-editor-modal',
-  templateUrl: './trucks-models-editor-modal.component.html',
-  styleUrls: ['./trucks-models-editor-modal.component.scss']
+  selector: 'app-cadastro-pedidos-models-editor-modal',
+  templateUrl: './cadastro-pedidos-models-editor-modal.component.html',
+  styleUrls: ['./cadastro-pedidos-models-editor-modal.component.scss']
 })
-export class TrucksModelsEditorModalComponent {
+export class CadastroPedidosModelsEditorModalComponent {
   public form!: FormGroup;
 
   public readonly TruckModelType = TruckModelType;
@@ -31,8 +31,8 @@ export class TrucksModelsEditorModalComponent {
     return this.form.valid && this.form.dirty;
   }
 
-  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<TrucksModelsEditorModalComponent>,
-              private service: TrucksModelsApiService, @Inject(MAT_DIALOG_DATA) private truckModel: TruckModelOutput) {
+  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<CadastroPedidosModelsEditorModalComponent>,
+              private service: CadastroPedidosModelsApiService, @Inject(MAT_DIALOG_DATA) private truckModel: TruckModelOutput) {
     this.isCreating = !truckModel;
     this.createForm();
   }

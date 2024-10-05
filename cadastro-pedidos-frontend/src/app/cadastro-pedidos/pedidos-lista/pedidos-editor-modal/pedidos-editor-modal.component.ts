@@ -1,19 +1,19 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {TrucksApiService} from "../../api/services/trucks-api.service";
+import {CadastroPedidosApiService} from "../../api/services/cadastro-pedidos-api.service";
 import {TruckOutput} from "../../api/models/truck-output";
 import {TruckInput} from "../../api/models/truck-input";
 import {TruckModelType} from "../../api/models/truck-model-type";
 import {TruckModelOutput} from "../../api/models/truck-model-output";
-import {TrucksModelsApiService} from "../../api/services/trucks-models-api.service";
+import {CadastroPedidosModelsApiService} from "../../api/services/cadastro-pedidos-models-api.service";
 
 @Component({
-  selector: 'app-trucks-editor-modal',
-  templateUrl: './trucks-editor-modal.component.html',
-  styleUrls: ['./trucks-editor-modal.component.scss']
+  selector: 'app-cadastro-pedidos-editor-modal',
+  templateUrl: './cadastro-pedidos-editor-modal.component.html',
+  styleUrls: ['./cadastro-pedidos-editor-modal.component.scss']
 })
-export class TrucksEditorModalComponent {
+export class CadastroPedidosEditorModalComponent {
   public form!: FormGroup;
   public truckModels: TruckModelOutput[] = [];
 
@@ -26,9 +26,9 @@ export class TrucksEditorModalComponent {
     return this.form.valid && this.form.dirty;
   }
 
-  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<TrucksEditorModalComponent>,
-              private service: TrucksApiService, @Inject(MAT_DIALOG_DATA) private truck: TruckOutput,
-              private trucksModelService: TrucksModelsApiService) {
+  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<CadastroPedidosEditorModalComponent>,
+              private service: CadastroPedidosApiService, @Inject(MAT_DIALOG_DATA) private truck: TruckOutput,
+              private cadastro-pedidosModelService: CadastroPedidosModelsApiService) {
     this.isCreating = !truck;
     this.createForm();
   }
@@ -62,8 +62,8 @@ export class TrucksEditorModalComponent {
       manufacturingYear: [this.truck.manufacturingYear, [Validators.required]],
     });
 
-    this.trucksModelService.getList().subscribe((trucksModels: TruckModelOutput[]) => {
-      this.truckModels = trucksModels;
+    this.cadastroPedidosModelService.getList().subscribe((cadastro-pedidosModels: TruckModelOutput[]) => {
+      this.truckModels = cadastro-pedidosModels;
     })
   }
 }

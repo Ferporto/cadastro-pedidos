@@ -1,16 +1,16 @@
 import {Component, TemplateRef} from '@angular/core';
 
-import {TrucksService} from "./trucks.service";
+import {CadastroPedidosService} from "./cadastro-pedidos.service";
 
 @Component({
-  selector: 'app-trucks',
-  templateUrl: './trucks.component.html',
-  styleUrls: ['./trucks.component.scss']
+  selector: 'app-cadastro-pedidos',
+  templateUrl: './cadastro-pedidos.component.html',
+  styleUrls: ['./cadastro-pedidos.component.scss']
 })
-export class TrucksComponent {
+export class CadastroPedidosComponent {
   public headerTemplate!: TemplateRef<any>
 
-  constructor(private service: TrucksService) {
+  constructor(private service: CadastroPedidosService) {
     this.subscribeToSetHeader();
   }
 

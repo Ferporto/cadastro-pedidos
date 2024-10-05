@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TrucksComponent} from './trucks.component';
+import {CadastroPedidosComponent} from './cadastro-pedidos.component';
 import {MatIconModule} from "@angular/material/icon";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -8,15 +8,15 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
-import {TrucksListComponent} from './trucks-list/trucks-list.component';
-import {TrucksModelsListComponent} from './trucks-models-list/trucks-models-list.component';
-import {TrucksService} from "./trucks.service";
-import {TrucksEditorModalComponent} from './trucks-list/trucks-editor-modal/trucks-editor-modal.component';
+import {CadastroPedidosListComponent} from './cadastro-pedidos-list/cadastro-pedidos-list.component';
+import {CadastroPedidosModelsListComponent} from './cadastro-pedidos-models-list/cadastro-pedidos-models-list.component';
+import {CadastroPedidosService} from "./cadastro-pedidos.service";
+import {CadastroPedidosEditorModalComponent} from './cadastro-pedidos-list/cadastro-pedidos-editor-modal/cadastro-pedidos-editor-modal.component';
 import {
-  TrucksModelsEditorModalComponent
-} from './trucks-models-list/trucks-models-editor-modal/trucks-models-editor-modal.component';
-import {TrucksApiService} from "./api/services/trucks-api.service";
-import {TrucksModelsApiService} from "./api/services/trucks-models-api.service";
+  CadastroPedidosModelsEditorModalComponent
+} from './cadastro-pedidos-models-list/cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component';
+import {CadastroPedidosApiService} from "./api/services/cadastro-pedidos-api.service";
+import {CadastroPedidosModelsApiService} from "./api/services/cadastro-pedidos-models-api.service";
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -24,11 +24,11 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
-    TrucksComponent,
-    TrucksListComponent,
-    TrucksModelsListComponent,
-    TrucksEditorModalComponent,
-    TrucksModelsEditorModalComponent
+    CadastroPedidosComponent,
+    CadastroPedidosListComponent,
+    CadastroPedidosModelsListComponent,
+    CadastroPedidosEditorModalComponent,
+    CadastroPedidosModelsEditorModalComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     RouterModule.forChild([
       {
         path: '',
-        component: TrucksComponent
+        component: CadastroPedidosComponent
       },
       {
         path: '**',
@@ -55,8 +55,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatTooltipModule,
   ],
   providers: [
-    TrucksService
+    CadastroPedidosService
   ]
 })
-export class TrucksModule {
+export class CadastroPedidosModule {
 }

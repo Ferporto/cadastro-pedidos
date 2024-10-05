@@ -1,26 +1,26 @@
 import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 
-import {TrucksService} from "../trucks.service";
-import {TrucksModelsEditorModalComponent} from "./trucks-models-editor-modal/trucks-models-editor-modal.component";
-import {TrucksModelsApiService} from "../api/services/trucks-models-api.service";
+import {CadastroPedidosService} from "../cadastro-pedidos.service";
+import {CadastroPedidosModelsEditorModalComponent} from "./cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component";
+import {CadastroPedidosModelsApiService} from "../api/services/cadastro-pedidos-models-api.service";
 import {TruckModelOutput} from "../api/models/truck-model-output";
 import {TruckModelType} from "../api/models/truck-model-type";
 
 @Component({
-  selector: 'app-trucks-models-list',
-  templateUrl: './trucks-models-list.component.html',
-  styleUrls: ['./trucks-models-list.component.scss']
+  selector: 'app-cadastro-pedidos-models-list',
+  templateUrl: './cadastro-pedidos-models-list.component.html',
+  styleUrls: ['./cadastro-pedidos-models-list.component.scss']
 })
-export class TrucksModelsListComponent implements AfterViewInit {
-  @ViewChild('TrucksModelsListHeader') private headerTemplate!: TemplateRef<any>;
+export class CadastroPedidosModelsListComponent implements AfterViewInit {
+  @ViewChild('CadastroPedidosModelsListHeader') private headerTemplate!: TemplateRef<any>;
 
   public columns: string[] = ['actions', 'name', 'type', 'year'];
   public truckModels: TruckModelOutput[] = [];
   public readonly TruckModelType = TruckModelType;
 
-  constructor(private trucksService: TrucksService,  private matDialog: MatDialog,
-              private service: TrucksModelsApiService) {
+  constructor(private cadastro-pedidosService: CadastroPedidosService,  private matDialog: MatDialog,
+              private service: CadastroPedidosModelsApiService) {
     this.getTruckModels();
   }
 
@@ -29,7 +29,7 @@ export class TrucksModelsListComponent implements AfterViewInit {
   }
 
   public openTruckModelEditor(truckModel?: TruckModelOutput): void {
-    this.matDialog.open(TrucksModelsEditorModalComponent, {
+    this.matDialog.open(CadastroPedidosModelsEditorModalComponent, {
       data: truckModel,
       hasBackdrop: true,
       height: 'calc(100% - 64px)',
@@ -60,6 +60,6 @@ export class TrucksModelsListComponent implements AfterViewInit {
   }
 
   private emitHeaderTemplate(): void {
-    this.trucksService.headerTemplate.next(this.headerTemplate);
+    this.cadastroPedidosService.headerTemplate.next(this.headerTemplate);
   }
 }
