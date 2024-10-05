@@ -3,6 +3,7 @@ using CadastroPedidos.Domain.Entities;
 using CadastroPedidos.Domain.Utils.Repositories;
 using CadastroPedidos.Domain.Utils.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Serialization;
 
 namespace CadastroPedidos.Application.Services
 {

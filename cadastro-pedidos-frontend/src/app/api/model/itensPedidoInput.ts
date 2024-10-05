@@ -12,6 +12,7 @@
 
 
 export interface ItensPedidoInput { 
+    id: number;
     idProduto: number;
     quantidade: number;
 }

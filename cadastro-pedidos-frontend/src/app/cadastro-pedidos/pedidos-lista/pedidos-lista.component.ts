@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CadastroPedidosService} from "../cadastro-pedidos.service";
 import {PedidosEditorModalComponent} from "./pedidos-editor-modal/pedidos-editor-modal.component";
 import { PedidoOutput, PedidoOutputPagedResultDto, PedidoService } from '../../api';
+import { PedidosItensListaComponent } from './pedidos-itens-lista/pedidos-itens-lista.component';
 
 @Component({
   selector: 'app-pedidos-lista',
@@ -47,6 +48,19 @@ export class PedidosListaComponent implements AfterViewInit {
   public delete(pedido: PedidoOutput): void {
     this.service.pedidosIdDelete(pedido.id).subscribe(() => {
       this.getPedidos();
+    });
+  }
+
+  public abrirItens(pedido: PedidoOutput): void {
+    this.matDialog.open(PedidosItensListaComponent, {
+      data: pedido,
+      hasBackdrop: true,
+      height: 'calc(100% - 64px)',
+      width: '40%',
+      position: {
+        right: '0',
+        bottom: '0',
+      }
     });
   }
 

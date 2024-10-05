@@ -14,6 +14,7 @@ import {ProdutosListaComponent} from './produtos-lista/produtos-lista.component'
 import {CadastroPedidosService} from "./cadastro-pedidos.service";
 import {PedidosEditorModalComponent} from './pedidos-lista/pedidos-editor-modal/pedidos-editor-modal.component';
 import {ProdutosEditorModalComponent} from './produtos-lista/produtos-editor-modal/produtos-editor-modal.component';
+import {PedidosItensListaComponent} from './pedidos-lista/pedidos-itens-lista/pedidos-itens-lista.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -26,7 +27,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     PedidosListaComponent,
     PedidosEditorModalComponent,
     ProdutosListaComponent,
-    ProdutosEditorModalComponent
+    ProdutosEditorModalComponent,
+    PedidosItensListaComponent
   ],
   imports: [
     CommonModule,

@@ -46,7 +46,7 @@ export class PedidosEditorModalComponent {
       id: [this.pedido.id],
       nomeCliente: [this.pedido.nomeCliente, [Validators.required]],
       emailCliente: [this.pedido.emailCliente, [Validators.required, Validators.email]],
-      pago: [this.pedido.pago, [Validators.required]],
+      pago: [this.pedido.pago ?? false, [Validators.required]],
     });
   }
 }

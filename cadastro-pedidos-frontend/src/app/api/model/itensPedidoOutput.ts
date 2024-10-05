@@ -12,7 +12,7 @@
 
 
 export interface ItensPedidoOutput { 
-    id?: number;
+    id: number;
     idPedido?: number;
     idProduto?: number;
     nomeProduto?: string | null;
