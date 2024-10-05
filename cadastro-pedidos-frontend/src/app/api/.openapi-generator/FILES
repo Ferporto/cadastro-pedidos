@@ -11,7 +11,13 @@ encoder.ts
 git_push.sh
 index.ts
 model/itensPedidoInput.ts
+model/itensPedidoOutput.ts
+model/itensPedidoOutputPagedResultDto.ts
 model/models.ts
 model/pedidoInput.ts
+model/pedidoOutput.ts
+model/pedidoOutputPagedResultDto.ts
 model/produtoInput.ts
+model/produtoOutput.ts
+model/produtoOutputPagedResultDto.ts
 variables.ts

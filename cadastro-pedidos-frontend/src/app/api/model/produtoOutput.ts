@@ -11,10 +11,9 @@
  */
 
 
-export interface PedidoInput { 
-    id: number;
-    nomeCliente: string;
-    emailCliente: string;
-    pago: boolean;
+export interface ProdutoOutput { 
+    id?: number;
+    nomeProduto?: string | null;
+    valor?: number;
 }
 

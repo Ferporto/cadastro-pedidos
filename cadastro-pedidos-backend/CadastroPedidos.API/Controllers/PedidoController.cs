@@ -1,5 +1,6 @@
 ﻿using CadastroPedidos.Application.Dtos;
 using CadastroPedidos.Application.Services;
+using CadastroPedidos.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroPedidos.API.Controllers;
@@ -16,7 +17,7 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] PedidoInput input)
+    public async Task<ActionResult<PedidoOutput>> Create([FromBody] PedidoInput input)
     {
         if (input == null)
         {
@@ -28,14 +29,14 @@ public class PedidoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<PedidoOutput>>> GetList([FromQuery] PagedFilteredAndSortedInput input)
     {
         var output = await _pedidoService.GetList(input);
         return Ok(output);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    public async Task<ActionResult<PedidoOutput>> Get([FromRoute] int id)
     {
         var output = await _pedidoService.Get(id);
         if (output == null) 

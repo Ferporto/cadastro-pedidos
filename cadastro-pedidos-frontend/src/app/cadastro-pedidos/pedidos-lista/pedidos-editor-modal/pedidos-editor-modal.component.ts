@@ -1,35 +1,25 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CadastroPedidosApiService} from "../../api/services/cadastro-pedidos-api.service";
-import {TruckOutput} from "../../api/models/truck-output";
-import {TruckInput} from "../../api/models/truck-input";
-import {TruckModelType} from "../../api/models/truck-model-type";
-import {TruckModelOutput} from "../../api/models/truck-model-output";
-import {CadastroPedidosModelsApiService} from "../../api/services/cadastro-pedidos-models-api.service";
+import { PedidoInput, PedidoOutput, PedidoService } from '../../../api';
 
 @Component({
-  selector: 'app-cadastro-pedidos-editor-modal',
-  templateUrl: './cadastro-pedidos-editor-modal.component.html',
-  styleUrls: ['./cadastro-pedidos-editor-modal.component.scss']
+  selector: 'app-pedidos-editor-modal',
+  templateUrl: './pedidos-editor-modal.component.html',
+  styleUrls: ['./pedidos-editor-modal.component.scss']
 })
-export class CadastroPedidosEditorModalComponent {
+export class PedidosEditorModalComponent {
   public form!: FormGroup;
-  public truckModels: TruckModelOutput[] = [];
-
-  public readonly TruckModelType = TruckModelType;
 
   private isCreating = false;
-  private currentYear = Number(new Date().getFullYear());
 
   public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<CadastroPedidosEditorModalComponent>,
-              private service: CadastroPedidosApiService, @Inject(MAT_DIALOG_DATA) private truck: TruckOutput,
-              private cadastro-pedidosModelService: CadastroPedidosModelsApiService) {
-    this.isCreating = !truck;
+  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<PedidosEditorModalComponent>,
+              private service: PedidoService, @Inject(MAT_DIALOG_DATA) private pedido: PedidoOutput) {
+    this.isCreating = !pedido;
     this.createForm();
   }
 
@@ -38,9 +28,9 @@ export class CadastroPedidosEditorModalComponent {
   }
 
   public save(): void {
-    const input: TruckInput = this.form.getRawValue();
+    const input: PedidoInput = this.form.getRawValue();
 
-    const action = this.isCreating ? this.service.create(input) : this.service.update(input.id, input);
+    const action = this.isCreating ? this.service.pedidosPost(input): this.service.pedidosIdPut(input.id, input);
 
     action.subscribe(() => {
       this.matDialogRef.close();
@@ -49,21 +39,14 @@ export class CadastroPedidosEditorModalComponent {
 
   private createForm(): void {
     if (this.isCreating) {
-      this.truck = {
-        id: '',
-        manufacturingYear: this.currentYear,
-      };
+      this.pedido = {} as any;
     }
 
     this.form = this.formBuilder.group({
-      id: [this.truck.id, [Validators.required]],
-      licensePlate: [this.truck.licensePlate],
-      modelId: [this.truck.modelId, [Validators.required]],
-      manufacturingYear: [this.truck.manufacturingYear, [Validators.required]],
+      id: [this.pedido.id],
+      nomeCliente: [this.pedido.nomeCliente, [Validators.required]],
+      emailCliente: [this.pedido.emailCliente, [Validators.required, Validators.email]],
+      pago: [this.pedido.pago, [Validators.required]],
     });
-
-    this.cadastroPedidosModelService.getList().subscribe((cadastro-pedidosModels: TruckModelOutput[]) => {
-      this.truckModels = cadastro-pedidosModels;
-    })
   }
 }

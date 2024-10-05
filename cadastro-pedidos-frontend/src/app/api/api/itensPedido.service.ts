@@ -20,6 +20,10 @@ import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
 import { ItensPedidoInput } from '../model/itensPedidoInput';
+// @ts-ignore
+import { ItensPedidoOutput } from '../model/itensPedidoOutput';
+// @ts-ignore
+import { ItensPedidoOutputPagedResultDto } from '../model/itensPedidoOutputPagedResultDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -32,7 +36,7 @@ import { Configuration }                                     from '../configurat
 })
 export class ItensPedidoService {
 
-    protected basePath = 'http://localhost';
+    protected basePath = 'http://localhost:5000';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -96,10 +100,10 @@ export class ItensPedidoService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<ItensPedidoOutputPagedResultDto>;
+    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpResponse<ItensPedidoOutputPagedResultDto>>;
+    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpEvent<ItensPedidoOutputPagedResultDto>>;
+    public pedidosIdPedidoItensGet(idPedido: number, skipCount?: number, maxResultCount?: number, sorting?: string, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<any> {
         if (idPedido === null || idPedido === undefined) {
             throw new Error('Required parameter idPedido was null or undefined when calling pedidosIdPedidoItensGet.');
         }
@@ -128,6 +132,9 @@ export class ItensPedidoService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'text/plain',
+                'application/json',
+                'text/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -146,7 +153,7 @@ export class ItensPedidoService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens`,
+        return this.httpClient.get<ItensPedidoOutputPagedResultDto>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -201,7 +208,6 @@ export class ItensPedidoService {
         }
 
         return this.httpClient.delete<any>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens/${encodeURIComponent(String(id))}`,
-            null,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -219,10 +225,10 @@ export class ItensPedidoService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<ItensPedidoOutput>;
+    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpResponse<ItensPedidoOutput>>;
+    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpEvent<ItensPedidoOutput>>;
+    public pedidosIdPedidoItensIdGet(idPedido: number, id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<any> {
         if (idPedido === null || idPedido === undefined) {
             throw new Error('Required parameter idPedido was null or undefined when calling pedidosIdPedidoItensIdGet.');
         }
@@ -236,6 +242,9 @@ export class ItensPedidoService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'text/plain',
+                'application/json',
+                'text/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -254,7 +263,7 @@ export class ItensPedidoService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<ItensPedidoOutput>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens/${encodeURIComponent(String(id))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -338,10 +347,10 @@ export class ItensPedidoService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<ItensPedidoOutput>;
+    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpResponse<ItensPedidoOutput>>;
+    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpEvent<ItensPedidoOutput>>;
+    public pedidosIdPedidoItensPost(idPedido: number, itensPedidoInput?: ItensPedidoInput, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<any> {
         if (idPedido === null || idPedido === undefined) {
             throw new Error('Required parameter idPedido was null or undefined when calling pedidosIdPedidoItensPost.');
         }
@@ -352,6 +361,9 @@ export class ItensPedidoService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'text/plain',
+                'application/json',
+                'text/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -381,7 +393,7 @@ export class ItensPedidoService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens`,
+        return this.httpClient.post<ItensPedidoOutput>(`${this.configuration.basePath}/pedidos/${encodeURIComponent(String(idPedido))}/itens`,
             itensPedidoInput,
             {
                 context: localVarHttpContext,

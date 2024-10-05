@@ -17,7 +17,7 @@ public class ItensPedidoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromRoute] int idPedido, [FromBody] ItensPedidoInput input)
+    public async Task<ActionResult<ItensPedidoOutput>> Create([FromRoute] int idPedido, [FromBody] ItensPedidoInput input)
     {
         if (input == null)
         {
@@ -29,14 +29,14 @@ public class ItensPedidoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromRoute] int idPedido, [FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<ItensPedidoOutput>>> GetList([FromRoute] int idPedido, [FromQuery] PagedFilteredAndSortedInput input)
     {
         var output = await _itensPedidoService.GetList(idPedido, input);
         return Ok(output);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get([FromRoute] int idPedido, [FromRoute] int id)
+    public async Task<ActionResult<ItensPedidoOutput>> Get([FromRoute] int idPedido, [FromRoute] int id)
     {
         var output = await _itensPedidoService.Get(idPedido, id);
         if (output == null) 

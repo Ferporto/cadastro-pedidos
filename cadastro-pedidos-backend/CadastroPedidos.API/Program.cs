@@ -12,6 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CadastroPedidosDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configurar CORS para permitir requisições do frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendOrigin", builder =>
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod());
+});
+
 // Adicionar Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,9 +29,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 // Configuração automática de dependências
-// Adiciona o DependencyConfigurator para registrar serviços automaticamente
-//var configurator = new DependencyConfigurator(Assembly.GetExecutingAssembly());
-//configurator.ConfigureDependencies(builder.Services);
 builder.Services.AddScoped<IDbContextWithTransactions, CadastroPedidosDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -41,20 +47,19 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configurar Swagger para o ambiente de desenvolvimento
-//if (app.Environment.IsDevelopment())
-//{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cadastro de Pedidos API v1");
-        c.RoutePrefix = string.Empty;  // Define Swagger como a página inicial do backend
-    });
-//}
+app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cadastro de Pedidos API v1");
+    c.RoutePrefix = string.Empty;  // Define Swagger como a página inicial do backend
+});
 
 app.UseRouting();
 
-// Mapear os controllers
+// Adicione a política de CORS antes dos controllers
+app.UseCors("AllowFrontendOrigin");
+
 app.MapControllers();
 
 app.Run();

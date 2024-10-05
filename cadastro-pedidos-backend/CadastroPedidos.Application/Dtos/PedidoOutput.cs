@@ -21,6 +21,8 @@ public class PedidoOutput
         NomeCliente = pedido.NomeCliente;
         EmailCliente = pedido.EmailCliente;
         Pago = pedido.Pago;
-        ItensPedido = pedido.ItensPedido.Select(item => new ItensPedidoOutput(item)).ToList();
+        ItensPedido = pedido.ItensPedido == null
+            ? new List<ItensPedidoOutput>()
+            : pedido.ItensPedido.Select(item => new ItensPedidoOutput(item)).ToList();
     }
 }

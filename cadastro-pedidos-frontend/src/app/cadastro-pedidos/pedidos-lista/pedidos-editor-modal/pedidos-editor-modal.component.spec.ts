@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CadastroPedidosEditorModalComponent } from './cadastro-pedidos-editor-modal.component';
+import { PedidosEditorModalComponent } from './pedidos-editor-modal.component';
 
-describe('CadastroPedidosEditorModalComponent', () => {
-  let component: CadastroPedidosEditorModalComponent;
-  let fixture: ComponentFixture<CadastroPedidosEditorModalComponent>;
+describe('PedidosEditorModalComponent', () => {
+  let component: PedidosEditorModalComponent;
+  let fixture: ComponentFixture<PedidosEditorModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CadastroPedidosEditorModalComponent ]
+      declarations: [ PedidosEditorModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CadastroPedidosEditorModalComponent);
+    fixture = TestBed.createComponent(PedidosEditorModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

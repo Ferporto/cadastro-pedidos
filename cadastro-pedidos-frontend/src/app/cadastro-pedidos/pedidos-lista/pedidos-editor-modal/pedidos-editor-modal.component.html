@@ -1,6 +1,6 @@
 <div class="header">
   <span>
-    Cadastrar Caminhão
+    Cadastrar Pedido
   </span>
   <button (click)="closeModal()">
     <mat-icon>close</mat-icon>
@@ -12,23 +12,18 @@
     <form [formGroup]="form">
       <div class="group-1">
         <mat-form-field>
-          <mat-label>Placa</mat-label>
-          <input matInput formControlName="licensePlate">
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Modelo</mat-label>
-          <mat-select formControlName="modelId" [placeholder]="truckModels.length == 0 ? 'Nenhum modelo cadastrado' : ''">
-            <mat-option *ngFor="let truckModel of truckModels" [value]="truckModel.id">
-              {{TruckModelType[truckModel.type].toUpperCase() + ' ' + truckModel.name + ' - ' + truckModel.year}}
-            </mat-option>
-          </mat-select>
+          <mat-label>Nome Cliente</mat-label>
+          <input matInput formControlName="nomeCliente" [required]="true">
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Ano de Fabricação</mat-label>
-          <input matInput formControlName="manufacturingYear" [readonly]="true" [required]="true">
+          <mat-label>Email Cliente</mat-label>
+          <input matInput formControlName="emailCliente" [required]="true">
         </mat-form-field>
+
+        <mat-checkbox formControlName="pago">
+          Pago
+        </mat-checkbox>
       </div>
     </form>
   </div>

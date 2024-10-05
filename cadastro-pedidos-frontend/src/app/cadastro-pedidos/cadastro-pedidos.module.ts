@@ -7,28 +7,26 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 import {RouterModule} from "@angular/router";
-import {CadastroPedidosListComponent} from './cadastro-pedidos-list/cadastro-pedidos-list.component';
-import {CadastroPedidosModelsListComponent} from './cadastro-pedidos-models-list/cadastro-pedidos-models-list.component';
+import {PedidosListaComponent} from './pedidos-lista/pedidos-lista.component';
+//import {CadastroPedidosModelsListComponent} from './cadastro-pedidos-models-list/cadastro-pedidos-models-list.component';
 import {CadastroPedidosService} from "./cadastro-pedidos.service";
-import {CadastroPedidosEditorModalComponent} from './cadastro-pedidos-list/cadastro-pedidos-editor-modal/cadastro-pedidos-editor-modal.component';
-import {
-  CadastroPedidosModelsEditorModalComponent
-} from './cadastro-pedidos-models-list/cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component';
-import {CadastroPedidosApiService} from "./api/services/cadastro-pedidos-api.service";
-import {CadastroPedidosModelsApiService} from "./api/services/cadastro-pedidos-models-api.service";
+import {PedidosEditorModalComponent} from './pedidos-lista/pedidos-editor-modal/pedidos-editor-modal.component';
+//import {
+//  CadastroPedidosModelsEditorModalComponent
+//} from './cadastro-pedidos-models-list/cadastro-pedidos-models-editor-modal/cadastro-pedidos-models-editor-modal.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     CadastroPedidosComponent,
-    CadastroPedidosListComponent,
-    CadastroPedidosModelsListComponent,
-    CadastroPedidosEditorModalComponent,
-    CadastroPedidosModelsEditorModalComponent
+    PedidosListaComponent,
+    PedidosEditorModalComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +34,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatFormFieldModule,
     MatTabsModule,
     MatTableModule,
     MatButtonModule,
@@ -53,6 +52,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
       }
     ]),
     MatTooltipModule,
+    MatCheckboxModule
   ],
   providers: [
     CadastroPedidosService

@@ -8,10 +8,18 @@ mat-form-field div.mat-form-field-flex {
   background-color: #fff !important;
 }
 
+.footer {
+  margin: 16px;
+}
+
 .header {
   min-height: 40px;
   border-bottom: 0.5px solid #cacaca;
   background-color: #fff;
+
+  > span {
+    margin: 16px;
+  }
 
   > button {
     place-items: center;

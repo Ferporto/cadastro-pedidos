@@ -16,7 +16,7 @@ public class ProdutoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProdutoInput input)
+    public async Task<ActionResult<ProdutoOutput>> Create([FromBody] ProdutoInput input)
     {
         if (input == null)
         {
@@ -28,14 +28,14 @@ public class ProdutoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery] PagedFilteredAndSortedInput input)
+    public async Task<ActionResult<PagedResultDto<ProdutoOutput>>> GetList([FromQuery] PagedFilteredAndSortedInput input)
     {
         var output = await _produtoService.GetList(input);
         return Ok(output);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    public async Task<ActionResult<ProdutoOutput>> Get([FromRoute] int id)
     {
         var output = await _produtoService.Get(id);
         if (output == null) 

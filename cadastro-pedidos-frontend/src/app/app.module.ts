@@ -15,6 +15,7 @@ import {AppComponent} from './app.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ApiModule } from './api';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {HttpClientModule} from "@angular/common/http";
         path: '',
         loadChildren: () => import('./cadastro-pedidos/cadastro-pedidos.module').then(m => m.CadastroPedidosModule)
       }
-    ])
+    ]),
+    ApiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

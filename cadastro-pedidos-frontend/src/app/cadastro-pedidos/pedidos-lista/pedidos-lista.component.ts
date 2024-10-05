@@ -2,34 +2,32 @@ import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 
 import {CadastroPedidosService} from "../cadastro-pedidos.service";
-import {CadastroPedidosEditorModalComponent} from "./cadastro-pedidos-editor-modal/cadastro-pedidos-editor-modal.component";
-import {CadastroPedidosApiService} from "../api/services/cadastro-pedidos-api.service";
-import {TruckModelOutput} from "../api/models/truck-model-output";
-import {TruckOutput} from "../api/models/truck-output";
+import {PedidosEditorModalComponent} from "./pedidos-editor-modal/pedidos-editor-modal.component";
+import { PedidoOutput, PedidoOutputPagedResultDto, PedidoService } from '../../api';
 
 @Component({
-  selector: 'app-cadastro-pedidos-list',
-  templateUrl: './cadastro-pedidos-list.component.html',
-  styleUrls: ['./cadastro-pedidos-list.component.scss']
+  selector: 'app-pedidos-lista',
+  templateUrl: './pedidos-lista.component.html',
+  styleUrls: ['./pedidos-lista.component.scss']
 })
-export class CadastroPedidosListComponent implements AfterViewInit {
-  @ViewChild('CadastroPedidosListHeader') private headerTemplate!: TemplateRef<any>;
+export class PedidosListaComponent implements AfterViewInit {
+  @ViewChild('PedidosListaHeader') private headerTemplate!: TemplateRef<any>;
 
-  public columns: string[] = ['actions', 'licensePlate', 'modelName', 'modelYear', 'manufacturingYear'];
-  public cadastro-pedidos: TruckOutput[] = [];
+  public columns: string[] = ['actions', 'nomeCliente', 'emailCliente', 'pago'];
+  public pedidos: PedidoOutput[] = [];
 
-  constructor(private cadastro-pedidosService: CadastroPedidosService, private matDialog: MatDialog,
-              private service: CadastroPedidosApiService) {
-    this.getCadastroPedidos();
+  constructor(private cadastroPedidosService: CadastroPedidosService, private matDialog: MatDialog,
+              private service: PedidoService) {
+    this.getPedidos();
   }
 
   ngAfterViewInit(): void {
     this.emitHeaderTemplate();
   }
 
-  public openTruckEditor(truck?: TruckOutput): void {
-    this.matDialog.open(CadastroPedidosEditorModalComponent, {
-      data: truck,
+  public openPedidosEditor(pedido?: any): void {
+    this.matDialog.open(PedidosEditorModalComponent, {
+      data: pedido,
       hasBackdrop: true,
       height: 'calc(100% - 64px)',
       width: '40%',
@@ -38,23 +36,23 @@ export class CadastroPedidosListComponent implements AfterViewInit {
         bottom: '0',
       }
     }).afterClosed().subscribe(() => {
-      this.getCadastroPedidos();
+      this.getPedidos();
     });
   }
 
-  public update(truckModel: TruckModelOutput): void {
-    this.openTruckEditor(truckModel);
+  public update(pedido: PedidoOutput): void {
+    this.openPedidosEditor(pedido);
   }
 
-  public delete(truckModel: TruckModelOutput): void {
-    this.service.delete(truckModel.id).subscribe(() => {
-      this.getCadastroPedidos();
+  public delete(pedido: PedidoOutput): void {
+    this.service.pedidosIdDelete(pedido.id).subscribe(() => {
+      this.getPedidos();
     });
   }
 
-  private getCadastroPedidos(): void {
-    this.service.getList().subscribe((cadastro-pedidos: TruckOutput[]) => {
-      this.cadastroPedidos = cadastro-pedidos;
+  private getPedidos(): void {
+    this.service.pedidosGet().subscribe((pedidosPaged: PedidoOutputPagedResultDto) => {
+      this.pedidos = pedidosPaged.itens;
     });
   }
 

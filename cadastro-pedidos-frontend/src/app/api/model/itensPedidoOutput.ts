@@ -11,10 +11,12 @@
  */
 
 
-export interface PedidoInput { 
-    id: number;
-    nomeCliente: string;
-    emailCliente: string;
-    pago: boolean;
+export interface ItensPedidoOutput { 
+    id?: number;
+    idPedido?: number;
+    idProduto?: number;
+    nomeProduto?: string | null;
+    valorUnitario?: number;
+    quantidade?: number;
 }
 

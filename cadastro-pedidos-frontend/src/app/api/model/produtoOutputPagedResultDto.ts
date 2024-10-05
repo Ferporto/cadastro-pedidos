@@ -9,12 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ProdutoOutput } from './produtoOutput';
 
 
-export interface PedidoInput { 
-    id: number;
-    nomeCliente: string;
-    emailCliente: string;
-    pago: boolean;
+export interface ProdutoOutputPagedResultDto { 
+    itens?: Array<ProdutoOutput> | null;
+    totalCount?: number;
 }
 
